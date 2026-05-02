@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { Post } from "@/sanity/lib/types"
+import { SectionDivider } from "@/components/section-divider"
 
 const categories = [
   { slug: "tumunu", name: "Tümü" },
@@ -50,29 +51,34 @@ export function ArticleList({ posts, initialCategory }: Props) {
         ))}
       </div>
 
-      <div className="space-y-12">
-        {filteredPosts.map((post) => (
-          <article key={post._id}>
-            <Link href={`/yazilar/${post.slug.current}`} className="group block">
-              <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2">
-                {post.topic && <span>{topicLabels[post.topic] ?? post.topic}</span>}
-                {post.topic && post.publishedAt && <span>·</span>}
-                {post.publishedAt && (
-                  <span>{new Date(post.publishedAt).getFullYear()}</span>
+      <div>
+        {filteredPosts.map((post, index) => (
+          <Fragment key={post._id}>
+            <article>
+              <Link href={`/yazilar/${post.slug.current}`} className="group block">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2">
+                  {post.topic && <span>{topicLabels[post.topic] ?? post.topic}</span>}
+                  {post.topic && post.publishedAt && <span>·</span>}
+                  {post.publishedAt && (
+                    <span>{new Date(post.publishedAt).getFullYear()}</span>
+                  )}
+                  {post.readingTime && <span>·</span>}
+                  {post.readingTime && <span>{post.readingTime} dk okuma</span>}
+                </div>
+                <h2 className="text-xl font-medium text-foreground group-hover:opacity-70 transition-opacity">
+                  {post.title}
+                </h2>
+                {post.description && (
+                  <p className="mt-2 text-muted-foreground leading-relaxed">
+                    {post.description}
+                  </p>
                 )}
-                {post.readingTime && <span>·</span>}
-                {post.readingTime && <span>{post.readingTime} dk okuma</span>}
-              </div>
-              <h2 className="text-xl font-medium text-foreground group-hover:opacity-70 transition-opacity">
-                {post.title}
-              </h2>
-              {post.description && (
-                <p className="mt-2 text-muted-foreground leading-relaxed">
-                  {post.description}
-                </p>
-              )}
-            </Link>
-          </article>
+              </Link>
+            </article>
+            {index < filteredPosts.length - 1 && (
+              <SectionDivider className="my-10" />
+            )}
+          </Fragment>
         ))}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { PortableText, PortableTextComponents } from "@portabletext/react"
 import { Post } from "@/sanity/lib/types"
+import { SectionDivider } from "@/components/section-divider"
 
 const portableTextComponents: PortableTextComponents = {
   block: {
@@ -76,9 +77,12 @@ export function ArticleContent({ post }: Props) {
       )}
 
       {post.body && (
-        <div className="prose prose-lg max-w-none">
-          <PortableText value={post.body} components={portableTextComponents} />
-        </div>
+        <>
+          <SectionDivider />
+          <div className="prose prose-lg max-w-none">
+            <PortableText value={post.body} components={portableTextComponents} />
+          </div>
+        </>
       )}
     </article>
   )

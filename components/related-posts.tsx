@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Post } from "@/sanity/lib/types"
+import { SectionDivider } from "@/components/section-divider"
 
 const topicLabels: Record<string, string> = {
   egitim: "Eğitim",
@@ -16,7 +17,8 @@ export function RelatedPosts({ posts }: Props) {
   if (!posts?.length) return null
 
   return (
-    <section className="mx-auto max-w-2xl px-6 py-16 border-t border-border">
+    <section className="mx-auto max-w-2xl px-6 pb-16">
+      <SectionDivider className="mb-16" />
       <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-8">
         Diğer yazılar
       </p>
