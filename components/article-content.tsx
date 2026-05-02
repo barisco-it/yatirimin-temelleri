@@ -44,7 +44,7 @@ const portableTextComponents: PortableTextComponents = {
 const topicLabels: Record<string, string> = {
   egitim: "Eğitim",
   gorus: "Görüş",
-  "derin-analiz": "Derin Analiz",
+  "analiz": "Analiz",
   notlar: "Notlar",
 }
 

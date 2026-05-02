@@ -8,23 +8,24 @@ const categories = [
   { slug: "tumunu", name: "Tümü" },
   { slug: "egitim", name: "Eğitim" },
   { slug: "gorus", name: "Görüş" },
-  { slug: "derin-analiz", name: "Derin Analiz" },
+  { slug: "analiz", name: "Analiz" },
   { slug: "notlar", name: "Notlar" },
 ]
 
 const topicLabels: Record<string, string> = {
   egitim: "Eğitim",
   gorus: "Görüş",
-  "derin-analiz": "Derin Analiz",
+  "analiz": "Analiz",
   notlar: "Notlar",
 }
 
 interface Props {
   posts: Post[]
+  initialCategory?: string
 }
 
-export function ArticleList({ posts }: Props) {
-  const [activeCategory, setActiveCategory] = useState("tumunu")
+export function ArticleList({ posts, initialCategory }: Props) {
+  const [activeCategory, setActiveCategory] = useState(initialCategory ?? "tumunu")
 
   const filteredPosts =
     activeCategory === "tumunu"

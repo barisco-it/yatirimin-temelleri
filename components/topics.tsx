@@ -3,7 +3,7 @@ import Link from "next/link"
 const topics = [
   { name: "Eğitim", slug: "egitim" },
   { name: "Görüş", slug: "gorus" },
-  { name: "Derin Analiz", slug: "derin-analiz" },
+  { name: "Analiz", slug: "analiz" },
   { name: "Notlar", slug: "notlar" },
 ]
 
@@ -18,7 +18,7 @@ export function Topics() {
           {topics.map((topic) => (
             <Link
               key={topic.slug}
-              href={`/konular/${topic.slug}`}
+              href={`/yazilar?category=${topic.slug}`}
               className="px-4 py-2 text-sm text-foreground border border-border rounded hover:bg-secondary transition-colors"
             >
               {topic.name}

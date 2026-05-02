@@ -10,8 +10,15 @@ export const metadata = {
   description: "Yatırım, birikim ve finans üzerine sade notlar",
 }
 
-export default async function YazilarPage() {
-  const posts = await client.fetch<Post[]>(allPostsQuery)
+interface Props {
+  searchParams: Promise<{ category?: string }>
+}
+
+export default async function YazilarPage({ searchParams }: Props) {
+  const [posts, { category }] = await Promise.all([
+    client.fetch<Post[]>(allPostsQuery),
+    searchParams,
+  ])
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,7 +33,7 @@ export default async function YazilarPage() {
               Yatırım, birikim ve finans üzerine sade notlar
             </p>
           </div>
-          <ArticleList posts={posts} />
+          <ArticleList posts={posts} initialCategory={category} />
         </div>
       </main>
       <Footer />

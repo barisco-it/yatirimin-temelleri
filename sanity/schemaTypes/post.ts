@@ -54,7 +54,7 @@ export const postType = defineType({
         list: [
           { title: 'Eğitim', value: 'egitim' },
           { title: 'Görüş', value: 'gorus' },
-          { title: 'Derin Analiz', value: 'derin-analiz' },
+          { title: 'Analiz', value: 'analiz' },
           { title: 'Notlar', value: 'notlar' },
         ],
       },
