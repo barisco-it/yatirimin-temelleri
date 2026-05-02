@@ -1,7 +1,14 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { Post } from "@/sanity/lib/types"
 
-export function FeaturedArticle() {
+interface Props {
+  post: Post | null
+}
+
+export function FeaturedArticle({ post }: Props) {
+  if (!post) return null
+
   return (
     <section className="w-full py-16 border-t border-border">
       <div className="mx-auto max-w-4xl px-6">
@@ -10,13 +17,15 @@ export function FeaturedArticle() {
         </span>
         <article className="mt-6">
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-foreground leading-snug text-balance">
-            {"TR'de enflasyon ortamında yatırım nasıl düşünülmeli?"}
+            {post.title}
           </h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed max-w-2xl">
-            Yüksek enflasyon dönemlerinde sermayeyi korumak ve büyütmek için hangi varlık sınıflarına yönelmeli? Reel getiri kavramı neden bu kadar önemli?
-          </p>
-          <Link 
-            href="/yazilar/enflasyon-ortaminda-yatirim"
+          {post.description && (
+            <p className="mt-4 text-muted-foreground leading-relaxed max-w-2xl">
+              {post.description}
+            </p>
+          )}
+          <Link
+            href={`/yazilar/${post.slug.current}`}
             className="mt-6 inline-flex items-center gap-2 text-sm text-foreground hover:opacity-70 transition-opacity group"
           >
             <span>Devamını oku</span>

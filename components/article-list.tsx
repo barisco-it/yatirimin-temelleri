@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { Post } from "@/sanity/lib/types"
 
 const categories = [
   { slug: "tumunu", name: "Tümü" },
@@ -11,42 +12,24 @@ const categories = [
   { slug: "notlar", name: "Notlar" },
 ]
 
-const articles = [
-  {
-    slug: "yatirim-nedir",
-    title: "Yatırım nedir? Gerçekten ne yapıyoruz?",
-    category: "Eğitim",
-    categorySlug: "egitim",
-    date: "2026",
-    readingTime: "6 dk okuma",
-    description: "Yatırım kavramını sade bir yerden ele alarak, aslında ne yaptığımızı anlamaya çalışıyoruz.",
-  },
-  {
-    slug: "varlik-siniflari",
-    title: "Varlık sınıfları nedir?",
-    category: "Eğitim",
-    categorySlug: "egitim",
-    date: "2026",
-    readingTime: "8 dk okuma",
-    description: "Hisse, tahvil, emtia, gayrimenkul ve diğer varlık sınıflarını anlamak.",
-  },
-  {
-    slug: "dolar-bazli-dusunmek",
-    title: "Dolar bazlı düşünmek ne demek?",
-    category: "Görüş",
-    categorySlug: "gorus",
-    date: "2026",
-    readingTime: "5 dk okuma",
-    description: "Enflasyon ortamında paranın değerini korumak için farklı bir bakış açısı.",
-  },
-]
+const topicLabels: Record<string, string> = {
+  egitim: "Eğitim",
+  gorus: "Görüş",
+  "derin-analiz": "Derin Analiz",
+  notlar: "Notlar",
+}
 
-export function ArticleList() {
+interface Props {
+  posts: Post[]
+}
+
+export function ArticleList({ posts }: Props) {
   const [activeCategory, setActiveCategory] = useState("tumunu")
 
-  const filteredArticles = activeCategory === "tumunu"
-    ? articles
-    : articles.filter(article => article.categorySlug === activeCategory)
+  const filteredPosts =
+    activeCategory === "tumunu"
+      ? posts
+      : posts.filter((post) => post.topic === activeCategory)
 
   return (
     <div>
@@ -67,25 +50,26 @@ export function ArticleList() {
       </div>
 
       <div className="space-y-12">
-        {filteredArticles.map((article) => (
-          <article key={article.slug}>
-            <Link 
-              href={`/yazilar/${article.slug}`}
-              className="group block"
-            >
+        {filteredPosts.map((post) => (
+          <article key={post._id}>
+            <Link href={`/yazilar/${post.slug.current}`} className="group block">
               <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2">
-                <span>{article.category}</span>
-                <span>·</span>
-                <span>{article.date}</span>
-                <span>·</span>
-                <span>{article.readingTime}</span>
+                {post.topic && <span>{topicLabels[post.topic] ?? post.topic}</span>}
+                {post.topic && post.publishedAt && <span>·</span>}
+                {post.publishedAt && (
+                  <span>{new Date(post.publishedAt).getFullYear()}</span>
+                )}
+                {post.readingTime && <span>·</span>}
+                {post.readingTime && <span>{post.readingTime} dk okuma</span>}
               </div>
               <h2 className="text-xl font-medium text-foreground group-hover:opacity-70 transition-opacity">
-                {article.title}
+                {post.title}
               </h2>
-              <p className="mt-2 text-muted-foreground leading-relaxed">
-                {article.description}
-              </p>
+              {post.description && (
+                <p className="mt-2 text-muted-foreground leading-relaxed">
+                  {post.description}
+                </p>
+              )}
             </Link>
           </article>
         ))}

@@ -1,13 +1,18 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ArticleList } from "@/components/article-list"
+import { client } from "@/sanity/lib/client"
+import { allPostsQuery } from "@/sanity/lib/queries"
+import { Post } from "@/sanity/lib/types"
 
 export const metadata = {
   title: "Yazılar | Yatırımın Temelleri",
   description: "Yatırım, birikim ve finans üzerine sade notlar",
 }
 
-export default function YazilarPage() {
+export default async function YazilarPage() {
+  const posts = await client.fetch<Post[]>(allPostsQuery)
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -21,7 +26,7 @@ export default function YazilarPage() {
               Yatırım, birikim ve finans üzerine sade notlar
             </p>
           </div>
-          <ArticleList />
+          <ArticleList posts={posts} />
         </div>
       </main>
       <Footer />

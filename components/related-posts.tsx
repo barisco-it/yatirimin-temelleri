@@ -1,40 +1,38 @@
 import Link from "next/link"
+import { Post } from "@/sanity/lib/types"
 
-const relatedPosts = [
-  {
-    title: "Bileşik faiz: Zamanın gücü",
-    slug: "bilesik-faiz",
-    category: "Eğitim",
-  },
-  {
-    title: "Portföy çeşitlendirmesi neden önemli?",
-    slug: "portfoy-cesitlendirmesi",
-    category: "Strateji",
-  },
-  {
-    title: "İlk yatırımınızı yapmadan önce",
-    slug: "ilk-yatiriminiz",
-    category: "Başlangıç",
-  },
-]
+const topicLabels: Record<string, string> = {
+  egitim: "Eğitim",
+  gorus: "Görüş",
+  "derin-analiz": "Derin Analiz",
+  notlar: "Notlar",
+}
 
-export function RelatedPosts() {
+interface Props {
+  posts: Post[]
+}
+
+export function RelatedPosts({ posts }: Props) {
+  if (!posts?.length) return null
+
   return (
     <section className="mx-auto max-w-2xl px-6 py-16 border-t border-border">
       <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-8">
         Diğer yazılar
       </p>
-      
+
       <div className="space-y-6">
-        {relatedPosts.map((post) => (
+        {posts.map((post) => (
           <Link
-            key={post.slug}
-            href={`/yazilar/${post.slug}`}
+            key={post._id}
+            href={`/yazilar/${post.slug.current}`}
             className="block group"
           >
-            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-1">
-              {post.category}
-            </p>
+            {post.topic && (
+              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-1">
+                {topicLabels[post.topic] ?? post.topic}
+              </p>
+            )}
             <h3 className="text-lg text-foreground group-hover:text-muted-foreground transition-colors">
               {post.title}
             </h3>

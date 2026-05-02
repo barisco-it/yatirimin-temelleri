@@ -9,7 +9,8 @@
       "Bash(rm -rf \"c:/Users/erbil/OneDrive/Desktop/Essentials Of Investments - Blog Project/components/ui\")",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npm install *)"
     ]
   }
 }
