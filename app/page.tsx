@@ -8,6 +8,8 @@ import { client } from "@/sanity/lib/client"
 import { featuredPostQuery, latestPostsQuery } from "@/sanity/lib/queries"
 import { Post } from "@/sanity/lib/types"
 
+export const revalidate = 60
+
 export default async function Home() {
   const [featuredPost, latestPosts] = await Promise.all([
     client.fetch<Post>(featuredPostQuery),

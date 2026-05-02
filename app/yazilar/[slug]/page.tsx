@@ -11,6 +11,8 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+export const revalidate = 60
+
 export async function generateStaticParams() {
   const slugs = await client.fetch<{ slug: string }[]>(allSlugsQuery)
   return slugs.map((item) => ({ slug: item.slug }))
