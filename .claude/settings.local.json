@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//tmp/**)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(Remove-Item -Path \"c:\\\\Users\\\\erbil\\\\OneDrive\\\\Desktop\\\\Essentials Of Investments - Blog Project\\\\components\\\\theme-provider.tsx\" -Force)",
+      "Bash(Remove-Item -Path \"c:\\\\Users\\\\erbil\\\\OneDrive\\\\Desktop\\\\Essentials Of Investments - Blog Project\\\\components\\\\ui\" -Recurse -Force)",
+      "Bash(rm -f \"c:/Users/erbil/OneDrive/Desktop/Essentials Of Investments - Blog Project/components/theme-provider.tsx\")",
+      "Bash(rm -rf \"c:/Users/erbil/OneDrive/Desktop/Essentials Of Investments - Blog Project/components/ui\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}
