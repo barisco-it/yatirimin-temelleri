@@ -12,6 +12,12 @@ export const postType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'author',
+      title: 'Yazar',
+      type: 'string',
+      initialValue: 'Barış',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

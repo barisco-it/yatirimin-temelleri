@@ -20,7 +20,7 @@ export const allPostsQuery = groq`
 
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
-    _id, title, slug, description, body, topic, publishedAt, readingTime, featured
+    _id, title, slug, author, description, body, topic, publishedAt, readingTime, featured
   }
 `
 

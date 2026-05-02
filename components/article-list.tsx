@@ -35,14 +35,14 @@ export function ArticleList({ posts, initialCategory }: Props) {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-4 mb-12">
+      <div className="flex flex-wrap gap-5 mb-12">
         {categories.map((category) => (
           <button
             key={category.slug}
             onClick={() => setActiveCategory(category.slug)}
-            className={`text-sm transition-colors ${
+            className={`text-sm transition-colors cursor-pointer ${
               activeCategory === category.slug
-                ? "text-foreground"
+                ? "text-foreground font-medium underline underline-offset-2 decoration-1"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -54,7 +54,7 @@ export function ArticleList({ posts, initialCategory }: Props) {
       <div>
         {filteredPosts.map((post, index) => (
           <Fragment key={post._id}>
-            <article>
+            <article className="py-1">
               <Link href={`/yazilar/${post.slug.current}`} className="group block">
                 <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2">
                   {post.topic && <span>{topicLabels[post.topic] ?? post.topic}</span>}
@@ -65,11 +65,11 @@ export function ArticleList({ posts, initialCategory }: Props) {
                   {post.readingTime && <span>·</span>}
                   {post.readingTime && <span>{post.readingTime} dk okuma</span>}
                 </div>
-                <h2 className="text-xl font-medium text-foreground group-hover:opacity-70 transition-opacity">
+                <h2 className="text-xl font-medium text-foreground group-hover:text-muted-foreground transition-colors">
                   {post.title}
                 </h2>
                 {post.description && (
-                  <p className="mt-2 text-muted-foreground leading-relaxed">
+                  <p className="mt-2 text-muted-foreground leading-relaxed group-hover:opacity-75 transition-opacity">
                     {post.description}
                   </p>
                 )}

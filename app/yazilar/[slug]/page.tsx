@@ -19,9 +19,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
   const post = await client.fetch<Post>(postBySlugQuery, { slug })
+
+  if (!post) return { title: 'Yazı bulunamadı' }
+
   return {
-    title: post ? `${post.title} | Yatırımın Temelleri` : 'Yazı bulunamadı',
-    description: post?.description,
+    title: `${post.title} | Yatırımın Temelleri`,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: 'article',
+      ...(post.publishedAt && { publishedTime: post.publishedAt }),
+      ...(post.author && { authors: [post.author] }),
+    },
   }
 }
 

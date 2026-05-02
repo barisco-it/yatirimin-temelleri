@@ -56,25 +56,27 @@ interface Props {
 export function ArticleContent({ post }: Props) {
   return (
     <article className="mx-auto max-w-2xl px-6 py-16">
-      <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-muted-foreground mb-8">
-        {post.topic && <span>{topicLabels[post.topic] ?? post.topic}</span>}
-        {post.topic && post.publishedAt && <span className="text-border">—</span>}
-        {post.publishedAt && (
-          <span>{new Date(post.publishedAt).getFullYear()}</span>
+      <header>
+        <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-muted-foreground mb-8">
+          {post.topic && <span>{topicLabels[post.topic] ?? post.topic}</span>}
+          {post.topic && post.publishedAt && <span className="text-border">—</span>}
+          {post.publishedAt && (
+            <span>{new Date(post.publishedAt).getFullYear()}</span>
+          )}
+          {post.readingTime && <span className="text-border">—</span>}
+          {post.readingTime && <span>{post.readingTime} dk okuma</span>}
+        </div>
+
+        <h1 className="text-3xl md:text-4xl font-normal leading-tight tracking-tight text-foreground mb-8">
+          {post.title}
+        </h1>
+
+        {post.description && (
+          <p className="text-lg text-muted-foreground leading-relaxed mb-12">
+            {post.description}
+          </p>
         )}
-        {post.readingTime && <span className="text-border">—</span>}
-        {post.readingTime && <span>{post.readingTime} dk okuma</span>}
-      </div>
-
-      <h1 className="text-3xl md:text-4xl font-normal leading-tight tracking-tight text-foreground mb-8">
-        {post.title}
-      </h1>
-
-      {post.description && (
-        <p className="text-lg text-muted-foreground leading-relaxed mb-12">
-          {post.description}
-        </p>
-      )}
+      </header>
 
       {post.body && (
         <>
@@ -83,6 +85,12 @@ export function ArticleContent({ post }: Props) {
             <PortableText value={post.body} components={portableTextComponents} />
           </div>
         </>
+      )}
+
+      {post.author && (
+        <p className="mt-16 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          {post.author}
+        </p>
       )}
     </article>
   )
